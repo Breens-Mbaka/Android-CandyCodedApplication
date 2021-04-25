@@ -19,7 +19,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public class InfoActivity extends AppCompatActivity {
-    TextView mAddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +29,6 @@ public class InfoActivity extends AppCompatActivity {
         Picasso.with(this).
                 load(uri).
                 into(candyStoreImageView);
-        mAddress = findViewById(R.id.text_view_address);
-        createMapIntent(mAddress);
     }
 
     // ***
@@ -49,5 +46,10 @@ public class InfoActivity extends AppCompatActivity {
     // ***
     // TODO - Task 3 - Launch the Phone Activity
     // ***
-
+    public void createPhoneIntent(View view) {
+        Uri phoneUri = Uri.parse("tel:0123456789");
+        Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+        dialIntent.setData(phoneUri);
+        startActivity(dialIntent);
+    }
 }
