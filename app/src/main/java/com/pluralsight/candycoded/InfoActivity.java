@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public class InfoActivity extends AppCompatActivity {
-
+    TextView mAddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +30,8 @@ public class InfoActivity extends AppCompatActivity {
         Picasso.with(this).
                 load(uri).
                 into(candyStoreImageView);
-
-
+        mAddress = findViewById(R.id.text_view_address);
+        createMapIntent(mAddress);
     }
 
     // ***
@@ -37,9 +39,9 @@ public class InfoActivity extends AppCompatActivity {
     // ***
     public void createMapIntent(View view) {
         Uri location = Uri.parse("geo:0,0?q=618 E South St Orlando, FL 32801");
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW,location).setPackage("com.google.android.apps.maps");
-        ComponentName resolveActivity = mapIntent.resolveActivity(getPackageManager());
-        if( resolveActivity != null) {
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW,location);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
         }
     }
